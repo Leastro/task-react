@@ -29,7 +29,6 @@ export function ProjectList({ selectedId, onSelect }: ProjectListProps) {
               onClick={() => onSelect?.(p.id)}
             >
               {p.name}
-              {p.id}
             </button>
           </li>
         ))}
