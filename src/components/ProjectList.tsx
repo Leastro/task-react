@@ -3,7 +3,8 @@ import { getProjects, type Project } from '../api/mock'
 
 export type ProjectListProps = {
   selectedId?: string
-  onSelect?: (id: string) => void // TODO 05: (TS) onSelect 의 시그니처를 더 안전하게 개선해보세요. string 보다 구체적인 타입 사용 고려
+  onSelect?: (id: Text) => void // TODO 05: (TS) onSelect 의 시그니처를 더 안전하게 개선해보세요. string 보다 구체적인 타입 사용 고려
+
 }
 
 export function ProjectList({ selectedId, onSelect }: ProjectListProps) {
@@ -28,6 +29,7 @@ export function ProjectList({ selectedId, onSelect }: ProjectListProps) {
               onClick={() => onSelect?.(p.id)}
             >
               {p.name}
+              {p.id}
             </button>
           </li>
         ))}
