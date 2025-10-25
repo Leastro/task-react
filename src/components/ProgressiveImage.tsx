@@ -7,13 +7,13 @@ export type ProgressiveImageProps = {
 }
 
 export function ProgressiveImage({ small, large, alt }: ProgressiveImageProps) {
-  const { url, quality, loading } = useProgressiveImage(small, large)
+  const { url, quality, loading, changeQul } = useProgressiveImage(small, large)
 
   // TODO 14: (CSS/UX) small -> large 전환 시 부드러운 페이드 효과를 추가하세요.
   //  - className 을 상태에 따라 다르게 주고, CSS transition 을 적용해보세요.
   return (
     <div>
-      <img src={url} alt={alt} width={240} height={160} />
+      <img className = {changeQul} src={url} alt={alt} width={240} height={160} />
       <div style={{ fontSize: 12, opacity: 0.7 }}>
         quality: {quality} {loading ? '(loading...)' : ''}
       </div>

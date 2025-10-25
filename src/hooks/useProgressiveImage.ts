@@ -13,25 +13,38 @@ import { loadImage, type ProgressiveResult } from '../utils/image'
 export function useProgressiveImage(smallUrl: string, largeUrl: string) {
   const [state, setState] = useState<ProgressiveResult | null>(null)
   const [loading, setLoading] = useState(true)
+  const [changeQul, setChangeQul] = useState("")
   const imgSrc: Array<string> = []
   
   // 구현하세요.
   useEffect(() => {
     loadImage(smallUrl).then((result) => {
-      imgSrc.push(result);
-      if(imgSrc.length == 1){
+      imgSrc.push(result)
+      if(imgSrc.length > 1){
+        setTimeout(() => {
+          setState({url: result, quality:"small"})
+          setLoading(false)
+          setChangeQul("fade-in-out")
+        }, 2000);
+      } else {
         setState({url: result, quality:"small"})
         setLoading(false)
       }
     })
     loadImage(largeUrl).then((result) => {
-      imgSrc.push(result);
-      if(imgSrc.length == 1){
+      imgSrc.push(result)
+      if(imgSrc.length > 1){
+        setTimeout(() => {
+          setState({url: result, quality:"large"})
+          setLoading(false)
+          setChangeQul("fade-in-out")
+        }, 2000);
+      } else {
         setState({url: result, quality:"large"})
         setLoading(false)
       }
     })
   }, [smallUrl,largeUrl])
  
-  return { url: state?.url ?? '', quality: state?.quality ?? 'small', loading }
+  return { url: state?.url ?? '', quality: state?.quality ?? 'small', loading, changeQul }
 }
