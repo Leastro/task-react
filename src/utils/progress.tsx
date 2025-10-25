@@ -6,7 +6,6 @@ import '../styles/taskBoard.css'
 
 export function CalcProgress ({tasks}: {tasks : Task[]}) {
   const progress = useMemo(() => {
-    console.log(tasks)
     const total = tasks.length
     const done = tasks.filter((t) => t.done).length
     const percent = total === 0 ? 0 : Math.round((done / total) * 100)
