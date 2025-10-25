@@ -12,9 +12,26 @@ import { loadImage, type ProgressiveResult } from '../utils/image'
 //  - 컴포넌트가 unmount 되면 메모리 누수를 방지하세요 (최신 호출만 반영).
 export function useProgressiveImage(smallUrl: string, largeUrl: string) {
   const [state, setState] = useState<ProgressiveResult | null>(null)
-  const [loading, setLoading] = useState(false)
-
+  const [loading, setLoading] = useState(true)
+  const imgSrc: Array<string> = []
+  
   // 구현하세요.
-
+  useEffect(() => {
+    loadImage(smallUrl).then((result) => {
+      imgSrc.push(result);
+      if(imgSrc.length == 1){
+        setState({url: result, quality:"small"})
+        setLoading(false)
+      }
+    })
+    loadImage(largeUrl).then((result) => {
+      imgSrc.push(result);
+      if(imgSrc.length == 1){
+        setState({url: result, quality:"large"})
+        setLoading(false)
+      }
+    })
+  }, [smallUrl,largeUrl])
+ 
   return { url: state?.url ?? '', quality: state?.quality ?? 'small', loading }
 }
