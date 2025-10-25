@@ -16,7 +16,7 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState('')
-
+  
   useEffect(() => {
     if (!projectId) {
       setTasks([])
@@ -57,7 +57,7 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
   return (
     <div>
       <h2>Tasks</h2>
-        <CalcProgress tasks={tasks}></CalcProgress>
+      <CalcProgress tasks={tasks} ></CalcProgress>
       <div className="taskboard__create">
         <input
           value={title}
