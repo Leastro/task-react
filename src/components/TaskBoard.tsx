@@ -72,6 +72,7 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="New task title"
           // TODO 13: (접근성) 입력 필드에 적절한 aria-* 속성을 추가하세요.
+          aria-description='Write New task title'
         />
         <button onClick={handleCreate}>Add</button>
       </div>
