@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   createTask,
   getTasksByProject,
@@ -6,6 +6,7 @@ import {
   type Task,
 } from '../api/mock'
 import '../styles/taskBoard.css'
+import {CalcProgress} from '../utils/progress.tsx'
 
 export type TaskBoardProps = {
   projectId?: string
@@ -30,11 +31,6 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
   // TODO 10: (리팩토링) 아래 progress 계산 로직을 컴포넌트 외부의 순수 함수로 추출하세요.
   // 파일 예: src/utils/progress.ts -> export function calcProgress(tasks: Task[]) { ... }
   // 그런 다음 이 컴포넌트에서는 그 함수를 import 해서 사용하세요.
-  const progress = useMemo(() => {
-    const total = tasks.length
-    const done = tasks.filter((t) => t.done).length
-    return { total, done, percent: total === 0 ? 0 : Math.round((done / total) * 100) }
-  }, [tasks])
 
   async function refresh() {
     if (!projectId) return
@@ -61,9 +57,7 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
   return (
     <div>
       <h2>Tasks</h2>
-      <div className="taskboard__progress" aria-label="progress">
-        {progress.done}/{progress.total} ({progress.percent}%)
-      </div>
+        <CalcProgress tasks={tasks}></CalcProgress>
       <div className="taskboard__create">
         <input
           value={title}
